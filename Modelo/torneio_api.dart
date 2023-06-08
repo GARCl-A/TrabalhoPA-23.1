@@ -30,7 +30,7 @@ abstract class Torneio_API
   // Verificar se requisitante é admin
   ({bool sucesso, bool permitir_pedidos, bool aceitar_pedidos})
   get_torneio_config
-  ({String id_torneio});
+  (String id_torneio);
   
   // Retorna lista de competidores inclusos no torneio
   ({bool sucesso, List competidores})

@@ -18,7 +18,7 @@ class Placar
   Placar(this.dados_competidores);
 }
 
-enum estado_torneio
+enum enum_estado_torneio
 {
   em_preparo,
   em_etapa,

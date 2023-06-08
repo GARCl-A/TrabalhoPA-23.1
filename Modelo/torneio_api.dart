@@ -20,9 +20,17 @@ abstract class Torneio_API
 
   // Define configurações do torneio
   // No momento, incluem apenas configurações quanto a entrada de competidores
+  // Verificar se requisitante é admin
   ({bool sucesso})
   set_torneio_config
-  ({bool permitir_pedidos, bool aceitar_pedidos});
+  ({String id_torneio, bool permitir_pedidos, bool aceitar_pedidos});
+
+  // Define configurações do torneio
+  // No momento, incluem apenas configurações quanto a entrada de competidores
+  // Verificar se requisitante é admin
+  ({bool sucesso, bool permitir_pedidos, bool aceitar_pedidos})
+  get_torneio_config
+  ({String id_torneio});
   
   // Retorna lista de competidores inclusos no torneio
   ({bool sucesso, List competidores})

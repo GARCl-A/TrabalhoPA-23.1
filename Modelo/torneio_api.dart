@@ -35,7 +35,7 @@ abstract class Torneio_API
   (String id_torneio);
 
   // Retorna estado do torneio, definido por um enum
-  ({bool sucesso, estado_torneio estado})
+  ({bool sucesso, enum_estado_torneio estado})
   get_estado_torneio
   (String id_torneio);
 
@@ -90,7 +90,7 @@ abstract class Torneio_API
   // Retorna todas as etapa atual do torneio, contendo uma lista das partidas e seus dados
   // Formato das partidas dependem do modo de torneio selecionado
   ({bool sucesso, List <Etapa> Etapas})
-  get_etapas_toreio
+  get_etapas_torneio
   (String id_torneio);
 
   // Valida e registra dados inseridos em partidas da etapa atual

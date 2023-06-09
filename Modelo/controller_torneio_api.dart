@@ -57,7 +57,7 @@ abstract class Torneio_API
   // Insere competidor em lista de pedidos de entrada do torneio
   ({bool sucesso, err_pedir_entrada err})
   pedir_entrada
-  (String id_torneio, String nome_competidor, String codigo_entrada);
+  (String id_torneio, String nome_competidor);
 
   // Aceita competidor da lista de pedidos
   // Verificar se requisitante é admin

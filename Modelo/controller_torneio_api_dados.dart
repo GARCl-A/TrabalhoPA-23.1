@@ -57,7 +57,8 @@ enum err_regras
   regras_indeterminadas,    // Regras do torneio não foram escolhidas
   regras_inexistentes,      // Regras selecionadas não existem
   torneio_em_progresso,
-  torneio_inexistente
+  torneio_inexistente,
+  erro_bd
 }
 
 enum err_criar_etapa

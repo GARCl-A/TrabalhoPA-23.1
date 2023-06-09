@@ -23,7 +23,7 @@ abstract class Torneio_API
   // Verificar se requisitante é admin
   ({bool sucesso})
   set_torneio_config
-  ({String id_torneio, bool permitir_pedidos, bool aceitar_pedidos});
+  (String id_torneio, {bool permitir_pedidos, bool aceitar_pedidos});
 
   // Define configurações do torneio
   // No momento, incluem apenas configurações quanto a entrada de competidores

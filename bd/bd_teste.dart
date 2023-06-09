@@ -61,45 +61,6 @@ class BDTeste extends BD_API
     return (sucesso: false, torneio: null);
   }
 
-  
-  @override
-  String get_codigo_entrada(String id_torneio) {
-    if (id_torneio == id_torneio_teste)
-    {
-      return codigo_entrada_teste;
-    }
-    return '';
-  }
-
-  @override
-  ({bool sucesso, bool aceitar_pedidos, bool permitir_pedidos}) get_torneio_config(String id_torneio) {
-    if (id_torneio == id_torneio_teste)
-      return (sucesso : true, aceitar_pedidos: aceitar_pedidos_teste, permitir_pedidos: permitir_pedidos_teste);
-    
-    return (sucesso: false, aceitar_pedidos: false, permitir_pedidos: false);
-    
-  }
-
-  @override
-  ({List competidores, bool sucesso}) get_competidores(String id_torneio) {
-    if (id_torneio == id_torneio_teste)
-    {
-      return (sucesso: true, competidores: competidores_teste);
-    }
-
-    return(sucesso: false, competidores: []);
-  }
-
-  @override
-  ({List pedidos, bool sucesso}) get_pedidos_entrada(String id_torneio) {
-    if (id_torneio == id_torneio_teste)
-    {
-      return (sucesso: true, pedidos: pedidos_comp_teste);
-    }
-
-    return(sucesso: false, pedidos: []);
-  }
-
 
   @override
   ({bool sucesso}) set_torneio_config(String id_torneio, {bool? permitir_pedidos, bool? aceitar_pedidos}) {

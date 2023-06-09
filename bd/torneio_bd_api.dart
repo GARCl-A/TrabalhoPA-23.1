@@ -19,26 +19,9 @@ abstract class BD_API
   get_dados_torneio
   (String id_torneio);
 
-  // Retorna o codigo de entrada da aplicação. Caso não exista, gera, registra e retorna.
-  String get_codigo_entrada (String id_torneio);
-
-  // Retorna configurações do torneio
-  ({bool sucesso, bool permitir_pedidos, bool aceitar_pedidos})
-  get_torneio_config
-  (String id_torneio);
-
   ({bool sucesso})
   set_torneio_config
   (String id_torneio, {bool? permitir_pedidos, bool? aceitar_pedidos});
-
-  ({bool sucesso, List competidores})
-  get_competidores
-  (String id_torneio);
-
-  // Retorna lista de competidores que requisitaram entrada no torneio
-  ({bool sucesso, List pedidos})
-  get_pedidos_entrada
-  (String id_torneio);
 
   // Adiciona um competidor à lista de pedidos de entrada do torneio.
   ({bool sucesso})

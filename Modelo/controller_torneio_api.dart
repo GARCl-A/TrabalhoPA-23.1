@@ -5,7 +5,8 @@
 */
 
 import 'controller_torneio_api_dados.dart';
-import '../constants/torneio_estates.dart';
+import '../constants/torneio_states.dart';
+import '../constants/modos_torneio.dart';
 
 abstract class Torneio_API
 {
@@ -81,7 +82,7 @@ abstract class Torneio_API
   // Verificar se requisitante é admin
   ({bool sucesso, err_regras ? err})   
   definir_regras       
-  (String id_torneio, String regras);
+  (String id_torneio, modos_torneio regras);
 
   // Cria a próxima/primeia etapa do torneio
   // Etapas anteriores devem ser concluídas e torneio deve estar em estado de interlúdio

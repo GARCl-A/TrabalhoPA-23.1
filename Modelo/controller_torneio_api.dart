@@ -4,7 +4,8 @@
  * 
 */
 
-import 'torneio_api_dados.dart';
+import 'controller_torneio_api_dados.dart';
+import '../constants/torneio_estates.dart';
 
 abstract class Torneio_API
 {

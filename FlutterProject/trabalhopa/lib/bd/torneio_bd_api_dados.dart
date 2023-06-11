@@ -13,7 +13,7 @@ class TorneioModelo
   List ? competidores;
   List ? pedidos_comp;
 
-  modos_torneio ? regras;
+  enum_modos_torneio ? regras;
 
   enum_estado_torneio ? estado_torneio;
 }

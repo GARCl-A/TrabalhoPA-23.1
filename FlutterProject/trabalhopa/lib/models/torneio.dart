@@ -5,7 +5,7 @@
 
 import '../bd/bd_teste.dart' show BDTeste;
 import '../bd/torneio_bd_api.dart' show BD_API;
-import '../bd/torneio_bd_api_dados.dart'; //Unused?
+//import '../bd/torneio_bd_api_dados.dart'; //Unused?
 import 'controller_torneio_api.dart' show Torneio_API;
 import 'controller_torneio_api_dados.dart'
     show
@@ -55,7 +55,9 @@ class Torneio implements Torneio_API {
 
   @override
   ({bool aceitar_pedidos, bool permitir_pedidos, bool sucesso})
-      get_torneio_config(String id_torneio) {
+  get_torneio_config
+  (String id_torneio) 
+  {
     var resposta = _conexao_banco.get_dados_torneio(id_torneio);
 
     if (resposta.sucesso == false)

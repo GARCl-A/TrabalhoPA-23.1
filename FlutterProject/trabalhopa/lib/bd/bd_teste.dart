@@ -25,14 +25,19 @@ class BDTeste extends BD_API
   modos_torneio regras_teste = modos_torneio.eliminacao_simples;
 
   @override
-  ({String id_admin, String id_torneio}) criar_torneio() {
+  Future<({String id_admin, String id_torneio})> criar_torneio() {
 
     aceitar_pedidos_teste = false;
     permitir_pedidos_teste = false;
 
     estado_torneio_teste = enum_estado_torneio.em_preparo;
 
-    return (id_admin: id_admin_teste, id_torneio: id_torneio_teste);
+    return Future<({String id_admin, String id_torneio})>.value
+    (
+      (id_admin: id_admin_teste, id_torneio: id_torneio_teste)
+    );
+    
+    //Future<(id_admin: id_admin_teste, id_torneio: id_torneio_teste)>;
   }
 
   @override

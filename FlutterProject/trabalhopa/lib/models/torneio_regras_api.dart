@@ -3,7 +3,4 @@
  * 
 */
 
-abstract class Regras
-{
-
-}
+abstract class Regras {}

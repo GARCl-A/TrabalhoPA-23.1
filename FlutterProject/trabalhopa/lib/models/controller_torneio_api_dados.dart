@@ -2,10 +2,10 @@ abstract class Partida {}
 
 class Etapa
 {
-  int inteiro;
+  int nro_etapa;
   List <Partida> partidas;
 
-  Etapa(this.inteiro, this.partidas);
+  Etapa(this.nro_etapa, this.partidas);
 
 }
 

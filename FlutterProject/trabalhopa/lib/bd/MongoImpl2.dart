@@ -3,10 +3,7 @@
  * 
 */
 
-import '../constants/modos_torneio.dart';
 import 'torneioBdApi2.dart';
-import 'torneio_bd_api_dados.dart';
-import '../constants/torneio_states.dart';
 
 import 'package:mongo_dart/mongo_dart.dart';
 

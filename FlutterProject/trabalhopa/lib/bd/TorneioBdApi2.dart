@@ -3,8 +3,6 @@
  * 
 */
 
-import '../constants/modos_torneio.dart';
-
 abstract class TorneioBdApi
 {
   // Cria um torneio, registrando seu id e id_admin, 

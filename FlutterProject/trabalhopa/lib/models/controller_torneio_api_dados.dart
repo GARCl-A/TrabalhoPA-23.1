@@ -27,6 +27,7 @@ class Placar
 enum err_comp_add
 {
   none,
+  nao_autorizado,
   nome_duplicado,
   torneio_cheio,
   torneio_inexistente,
@@ -71,5 +72,22 @@ enum err_criar_etapa
 enum err_concluir_etapa
 {
   none,
+  partida_invalida
+}
+
+
+enum err_geral
+{
+  none,
+  nao_autorizado,
+  torneio_inexistente,
+  torneio_cheio,
+  erro_bd,
+  nome_invalido,
+  nome_duplicado,
+  entrada_negada,
+  regras_indeterminadas,
+  torneio_em_progresso,
+  etapa_nao_concluida,
   partida_invalida
 }

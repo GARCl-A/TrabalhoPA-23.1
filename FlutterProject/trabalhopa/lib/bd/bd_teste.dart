@@ -2,6 +2,7 @@
  * Implementação da interface torneio-banco de dados para fins de teste
  * 
 */
+/*
 
 import '../constants/modos_torneio.dart';
 import 'torneio_bd_api.dart';
@@ -22,7 +23,7 @@ class BDTeste extends BD_API
 
   enum_estado_torneio estado_torneio_teste = enum_estado_torneio.em_preparo;
 
-  modos_torneio regras_teste = modos_torneio.eliminacao_simples;
+  enum_modos_torneio regras_teste = enum_modos_torneio.eliminacao_simples;
 
   @override
   Future<({String id_admin, String id_torneio})> criar_torneio() {
@@ -119,7 +120,7 @@ class BDTeste extends BD_API
   }
 
   @override
-  ({bool sucesso}) definir_regras(String id_torneio, modos_torneio regras) {
+  ({bool sucesso}) definir_regras(String id_torneio, enum_modos_torneio regras) {
     if (id_torneio_teste != id_torneio) return (sucesso: false);
 
     regras_teste = regras;
@@ -127,3 +128,5 @@ class BDTeste extends BD_API
   }
 
 }
+
+*/

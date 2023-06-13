@@ -23,9 +23,9 @@ void main() async
 {
   await MongoConnection.create();
   var minhaConexao = MongoConnection();
-  print(await minhaConexao.remover_competidor('S4duGbWuNg', 'Compet A'));
+  //print(await minhaConexao.remover_competidor('S4duGbWuNg', 'Compet A'));
   
-  //minhaConexao.meth_test();
+  minhaConexao.meth_test();
   
 
 }
@@ -36,9 +36,16 @@ class MongoConnection implements BD_API
   
   Future<void> meth_test() async
   {
-    var resposta = await _torneiosCollection?.findOne(where.eq('id_torneio', '6eCXffwU4Z'));
+    var resposta = await _torneiosCollection!.findOne(where.eq('id_torneio', 'S4duGbWuNg'));
     print(resposta?['id_admin']);
     print(resposta?['inexistente']);
+
+    if(resposta == null) return;
+
+    resposta!['novo_campo'] = [['Lista_dentro_de_lista, meio complexo']];
+    var res_replace = await _torneiosCollection?.replaceOne({'id_torneio':'S4duGbWuNg'}, resposta);
+    print(res_replace!.isSuccess);
+
   }
   
   static Db ? _db;

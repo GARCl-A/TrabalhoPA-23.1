@@ -15,7 +15,7 @@ abstract class Torneio_API
   criar_torneio
   ();
 
-  // Retorna um map com os dados gerais do torneio, exceto etapas, placar e partidas
+  // Retorna um map com os dados do torneio, inclusive de etapas e partidas caso já tenham si adicionadas
   Future<({bool sucesso, Map<String,dynamic> ? torneio})>
   get_torneio_map
   (String id_torneio);
@@ -93,7 +93,7 @@ abstract class Torneio_API
   // Cria a próxima/primeia etapa do torneio
   // Etapas anteriores devem ser concluídas e torneio deve estar em estado de interlúdio
   // Verificar se requisitante é admin
-  ({bool sucesso, err_criar_etapa ? err, Etapa ? proxima_etapa})   
+  Future<({bool sucesso, err_geral ? err, Map<String,dynamic> ? proxima_etapa})>  
   criar_proxima_etapa  
   (String id_torneio, String id_admin);
 
@@ -117,6 +117,8 @@ abstract class Torneio_API
   concluir_etapa 
   (String id_torneio, String id_admin, Etapa etapa_atual);
 
+
+  // Retorna uma lista com os dados de performance dos competidores na partida
   ({bool sucesso, Placar ? placar}) 
   get_placar 
   (String id_torneio, String id_admin);

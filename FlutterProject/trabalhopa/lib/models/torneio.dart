@@ -5,7 +5,7 @@
 
 import 'controller_torneio_api.dart' show Torneio_API;
 import 'controller_torneio_api_dados.dart'
-    show Etapa, Placar, err_concluir_etapa, err_criar_etapa, err_geral, err_pedir_entrada;
+    show Etapa, Placar, err_concluir_etapa, err_geral, err_pedir_entrada;
 import '../constants/torneio_states.dart';
 import '../constants/modos_torneio.dart';
 import '../bd/MongoImpl2.dart';
@@ -79,7 +79,11 @@ class Torneio implements Torneio_API {
       'competidores'        :     [],
       'pedidos_comp'        :     [],
       
-      'regras'              :     enum_modos_torneio.nao_selecionado.index
+      'regras'              :     enum_modos_torneio.nao_selecionado.index,
+
+      'etapas'              :     [],
+
+      'dados_competidores'  :     []
     };
 
     var resEscrita = await _conexao_banco.criarTorneio(torneio);
@@ -208,7 +212,7 @@ class Torneio implements Torneio_API {
   }
   
   @override
-  ({err_criar_etapa? err, Etapa? proxima_etapa, bool sucesso}) criar_proxima_etapa(String id_torneio, String id_admin) {
+  Future<({err_geral? err, Map<String,dynamic>? proxima_etapa, bool sucesso})> criar_proxima_etapa(String id_torneio, String id_admin) {
     // TODO: implement criar_proxima_etapa
     throw UnimplementedError();
   }

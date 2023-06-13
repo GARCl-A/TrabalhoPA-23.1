@@ -7,6 +7,8 @@ String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
     length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
 
+
+// Verificar nome de competidor
 bool checkNomeCompetidor (String nome_competidor)
 {
   return RegExp(r'^[A-Za-z0-9]+$').hasMatch(nome_competidor);

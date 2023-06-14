@@ -40,6 +40,11 @@ class MongoConnection implements TorneioBdApi
     _torneiosCollection = _db!.collection('torneios');
     print("Conectado!");
   }
+
+  static Future<void> close() async
+  {
+    await _db?.close();
+  }
   
   @override
   Future<({bool sucesso})> criarTorneio(Map<String,dynamic> torneioInicial) async {

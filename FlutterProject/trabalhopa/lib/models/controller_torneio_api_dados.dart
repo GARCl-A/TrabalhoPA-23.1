@@ -18,7 +18,32 @@ class Placar
   Placar(this.dados_competidores);
 }
 
+////////////////////////////////////////////////////////////////////////////////////////
+/// Torneio MAP
+/// /////////////////////////////////////////////////////////////////////////////////////
+/*
+Map <String,dynamic> torneio = 
+    {
+      'id_torneio'          :     codigoTorneio,
+      'id_admin'            :     codigoAdmin,
+      'codigo_entrada'      :     codigoEntrada,
 
+      'estado_torneio'      :     enum_estado_torneio.em_preparo.index,
+
+      'permitir_pedidos'    :     true,
+      'aceitar_pedidos'     :     false,
+
+      'competidores'        :     [],
+      'pedidos_comp'        :     [],
+      
+      'regras'              :     enum_modos_torneio.nao_selecionado.index,
+
+      'etapas'              :     [],
+
+      'dados_competidores'  :     []
+    };
+
+*/
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /// Mensagens de erro
@@ -89,5 +114,7 @@ enum err_geral
   regras_indeterminadas,
   torneio_em_progresso,
   etapa_nao_concluida,
+  etapa_invalida,
+  estado_invalido,
   partida_invalida
 }

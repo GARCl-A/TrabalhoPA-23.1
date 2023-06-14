@@ -206,13 +206,17 @@ class Torneio implements Torneio_API {
   }
   
   @override
-  ({err_concluir_etapa? err, String? msg, bool sucesso}) concluir_etapa(String id_torneio, String id_admin, Etapa etapa_atual) {
+  Future<({err_geral? err, bool sucesso})>
+  concluir_etapa
+  (String id_torneio, String id_admin, Map<String,dynamic> etapa_atual) {
     // TODO: implement concluir_etapa
     throw UnimplementedError();
   }
   
   @override
-  Future<({err_geral? err, Map<String,dynamic>? proxima_etapa, bool sucesso})> criar_proxima_etapa(String id_torneio, String id_admin) {
+  Future<({err_geral? err, Map<String,dynamic>? proxima_etapa, bool sucesso, bool torneio_fim})>
+  criar_proxima_etapa
+  (String id_torneio, String id_admin) {
     // TODO: implement criar_proxima_etapa
     throw UnimplementedError();
   }

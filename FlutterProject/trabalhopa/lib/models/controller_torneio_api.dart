@@ -91,9 +91,10 @@ abstract class Torneio_API
   (String id_torneio, String id_admin, enum_modos_torneio regras);
 
   // Cria a próxima/primeia etapa do torneio
-  // Etapas anteriores devem ser concluídas e torneio deve estar em estado de interlúdio
-  // Verificar se requisitante é admin
-  Future<({bool sucesso, err_geral ? err, Map<String,dynamic> ? proxima_etapa})>  
+  // Etapas anteriores devem ser concluídas e torneio deve estar em estado de interlúdio ou de preparo
+  // Caso não tenha próxima etapa (Ex um jogador restante em eliminação simples), o torneio
+  // é finalizado
+  Future<({bool sucesso, bool torneio_fim, err_geral ? err, Map<String,dynamic> ? proxima_etapa})>  
   criar_proxima_etapa  
   (String id_torneio, String id_admin);
 
@@ -110,12 +111,10 @@ abstract class Torneio_API
   (String id_torneio);
 
   // Valida e registra dados inseridos em partidas da etapa atual
-  // Razão de erro pode variar entre um tipo de torneio e outro
-  // Adiciona-se outro parametro (msg), com razão específica
   // Verificar se requisitante é admin
-  ({bool sucesso, err_concluir_etapa ? err, String ? msg}) 
+  Future <({bool sucesso, err_geral ? err})> 
   concluir_etapa 
-  (String id_torneio, String id_admin, Etapa etapa_atual);
+  (String id_torneio, String id_admin, Map<String,dynamic> etapa_atual);
 
 
   // Retorna uma lista com os dados de performance dos competidores na partida

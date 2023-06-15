@@ -41,7 +41,7 @@ abstract class Torneio_API
   (String id_torneio);
   
   // Retorna lista de competidores inclusos no torneio
-  ({bool sucesso, List ? competidores})
+  Future<({bool sucesso, List ? competidores})>
   get_competidores
   (String id_torneio);
 

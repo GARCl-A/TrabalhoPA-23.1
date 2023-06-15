@@ -133,7 +133,7 @@ class Torneio implements Torneio_API {
   {
     // Autorização
     var resposta = await check_if_admin(id_torneio, id_admin);
-    if (resposta.is_admin == null) return (sucesso:false, err: err_geral.torneio_inexistente);
+    if (resposta.sucesso == false) return (sucesso:false, err: err_geral.torneio_inexistente);
     if (resposta.is_admin == false) return (sucesso:false, err: err_geral.nao_autorizado);
 
     if (checkNomeCompetidor(nome_competidor) == false) return (sucesso:false, err: err_geral.nome_invalido);
@@ -163,7 +163,8 @@ class Torneio implements Torneio_API {
     if (resposta.is_admin == null) return (sucesso:false, err: err_geral.torneio_inexistente);
     if (resposta.is_admin == false) return (sucesso:false, err: err_geral.nao_autorizado);
 
-    var res_get = await _conexao_banco.getTorneio(id_torneio); 
+    var res_get = await _conexao_banco.getTorneio(id_torneio);
+    if (res_get.sucesso == false) return (sucesso:false, err: err_geral.erro_bd);
     if (res_get.torneio?['competidores'] == null) return (sucesso:false, err: err_geral.erro_bd);
 
     List compet = res_get.torneio!['competidores'];
@@ -184,10 +185,11 @@ class Torneio implements Torneio_API {
   {
     // Autorização
     var resposta = await check_if_admin(id_torneio, id_admin);
-    if (resposta.is_admin == null) return (sucesso:false, err: err_geral.torneio_inexistente);
+    if (resposta.sucesso == false) return (sucesso:false, err: err_geral.torneio_inexistente);
     if (resposta.is_admin == false) return (sucesso:false, err: err_geral.nao_autorizado);
 
-    var res_get = await _conexao_banco.getTorneio(id_torneio); 
+    var res_get = await _conexao_banco.getTorneio(id_torneio);
+    if (res_get.sucesso == false) return (sucesso:false, err: err_geral.erro_bd);
     if (res_get.torneio?['id_torneio'] == null) return (sucesso:false, err: err_geral.erro_bd);
 
     res_get.torneio!['regras'] = regras.index;
@@ -228,9 +230,16 @@ class Torneio implements Torneio_API {
   }
   
   @override
-  ({List? competidores, bool sucesso}) get_competidores(String id_torneio) {
-    // TODO: implement get_competidores
-    throw UnimplementedError();
+  Future<({List? competidores, bool sucesso})> get_competidores(String id_torneio) async
+  {
+    var res_get = await _conexao_banco.getTorneio(id_torneio); 
+    if (res_get.sucesso == false)                 return (sucesso:false, competidores : null);
+    if (res_get.torneio?['competidores'] == null) return (sucesso:false, competidores : null);
+
+    List comp = res_get.torneio?['competidores']??[];
+    
+    return (sucesso:true, competidores : comp);
+
   }
   
   @override

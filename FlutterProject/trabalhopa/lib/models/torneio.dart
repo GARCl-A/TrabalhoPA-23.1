@@ -3,9 +3,11 @@
  * Contém lógica de alto nível do aplicativo, delegando detalhes específicos do torneio para o serviço "Regras"
 */
 
-import 'controller_torneio_api.dart' show Torneio_API;
-import 'controller_torneio_api_dados.dart'
-    show Etapa, Placar, err_concluir_etapa, err_geral, err_pedir_entrada;
+import 'package:trabalhopa/models/api_torneio_dados.dart';
+
+import 'api_torneio_interface.dart' show API_TORNEIO;
+import 'api_torneio_dados.dart'
+    show Etapa, Placar, err_geral, err_pedir_entrada;
 import '../constants/torneio_states.dart';
 import '../constants/modos_torneio.dart';
 import '../bd/MongoImpl2.dart';
@@ -35,7 +37,7 @@ void main() async
   print( await meu_torneio.get_torneio_map('y4swFT49Sx'));
 }
 
-class Torneio implements Torneio_API {
+class Torneio implements API_TORNEIO  {
   //Regras? _regras;
   MongoConnection _conexao_banco = MongoConnection();
 
@@ -140,7 +142,8 @@ class Torneio implements Torneio_API {
 
     if (checkNomeCompetidor(nome_competidor) == false) return (sucesso:false, err: err_geral.nome_invalido);
 
-    var res_get = await _conexao_banco.getTorneio(id_torneio); 
+    var res_get = await _conexao_banco.getTorneio(id_torneio);
+    if (res_get.sucesso == false) return (sucesso:false, err: err_geral.torneio_inexistente);
     if (res_get.torneio?['competidores'] == null) return (sucesso:false, err: err_geral.erro_bd);
 
     List compet = res_get.torneio!['competidores'];
@@ -166,7 +169,7 @@ class Torneio implements Torneio_API {
     if (resposta.is_admin == false) return (sucesso:false, err: err_geral.nao_autorizado);
 
     var res_get = await _conexao_banco.getTorneio(id_torneio);
-    if (res_get.sucesso == false) return (sucesso:false, err: err_geral.erro_bd);
+    if (res_get.sucesso == false) return (sucesso:false, err: err_geral.torneio_inexistente);
     if (res_get.torneio?['competidores'] == null) return (sucesso:false, err: err_geral.erro_bd);
 
     List compet = res_get.torneio!['competidores'];
@@ -191,7 +194,7 @@ class Torneio implements Torneio_API {
     if (resposta.is_admin == false) return (sucesso:false, err: err_geral.nao_autorizado);
 
     var res_get = await _conexao_banco.getTorneio(id_torneio);
-    if (res_get.sucesso == false) return (sucesso:false, err: err_geral.erro_bd);
+    if (res_get.sucesso == false) return (sucesso:false, err: err_geral.torneio_inexistente);
     if (res_get.torneio?['id_torneio'] == null) return (sucesso:false, err: err_geral.erro_bd);
 
     res_get.torneio!['regras'] = regras.index;
@@ -228,7 +231,7 @@ class Torneio implements Torneio_API {
   }
   
   @override
-  ({err_pedir_entrada? err, bool sucesso}) aceitar_entrada(String id_torneio, String id_admin, String nome_competidor) {
+  Future<({err_pedir_entrada? err, bool sucesso})> aceitar_entrada(String id_torneio, String id_admin, String nome_competidor) {
     // TODO: implement aceitar_entrada
     throw UnimplementedError();
   }
@@ -250,7 +253,7 @@ class Torneio implements Torneio_API {
   }
   
   @override
-  ({String? codigo_entrada, bool sucesso}) get_codigo_entrada(String id_torneio) {
+  Future<({String? codigo_entrada, bool sucesso})> get_codigo_entrada(String id_torneio) {
     // TODO: implement get_codigo_entrada
     throw UnimplementedError();
   }
@@ -269,55 +272,55 @@ class Torneio implements Torneio_API {
   }
   
   @override
-  ({enum_estado_torneio? estado, bool sucesso}) get_estado_torneio(String id_torneio) {
+  Future<({enum_estado_torneio? estado, bool sucesso})> get_estado_torneio(String id_torneio) {
     // TODO: implement get_estado_torneio
     throw UnimplementedError();
   }
   
   @override
-  ({Etapa? etapa_atual, bool sucesso}) get_etapa_atual(String id_torneio) {
+  Future<({Etapa? etapa_atual, bool sucesso})> get_etapa_atual(String id_torneio) {
     // TODO: implement get_etapa_atual
     throw UnimplementedError();
   }
   
   @override
-  ({List<Etapa>? Etapas, bool sucesso}) get_etapas_torneio(String id_torneio) {
+  Future<({List<Etapa>? Etapas, bool sucesso})> get_etapas_torneio(String id_torneio) {
     // TODO: implement get_etapas_torneio
     throw UnimplementedError();
   }
   
   @override
-  ({List? pedidos, bool sucesso}) get_pedidos_entrada(String id_torneio) {
+  Future<({List? pedidos, bool sucesso})> get_pedidos_entrada(String id_torneio) {
     // TODO: implement get_pedidos_entrada
     throw UnimplementedError();
   }
   
   @override
-  ({Placar? placar, bool sucesso}) get_placar(String id_torneio, String id_admin) {
+  Future<({Placar? placar, bool sucesso})> get_placar(String id_torneio, String id_admin) {
     // TODO: implement get_placar
     throw UnimplementedError();
   }
   
   @override
-  ({bool? aceitar_pedidos, bool? permitir_pedidos, bool sucesso}) get_torneio_config(String id_torneio) {
+  Future<({bool? aceitar_pedidos, bool? permitir_pedidos, bool sucesso})> get_torneio_config(String id_torneio) {
     // TODO: implement get_torneio_config
     throw UnimplementedError();
   }
   
   @override
-  ({err_pedir_entrada? err, bool sucesso}) pedir_entrada(String id_torneio, String nome_competidor) {
+  Future<({err_pedir_entrada? err, bool sucesso})> pedir_entrada(String id_torneio, String nome_competidor) {
     // TODO: implement pedir_entrada
     throw UnimplementedError();
   }
   
   @override
-  ({bool sucesso}) set_torneio_config(String id_torneio, String id_admin, {bool ? permitir_pedidos, bool ? aceitar_pedidos}) {
+  Future<({bool sucesso})> set_torneio_config(String id_torneio, String id_admin, {bool ? permitir_pedidos, bool ? aceitar_pedidos}) {
     // TODO: implement set_torneio_config
     throw UnimplementedError();
   }
   
   @override
-  ({bool sucesso}) voltar_etapa(String id_torneio, String id_admin) {
+  Future<({bool sucesso})> voltar_etapa(String id_torneio, String id_admin) {
     // TODO: implement voltar_etapa
     throw UnimplementedError();
   }

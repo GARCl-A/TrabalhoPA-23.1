@@ -28,6 +28,8 @@ Map <String,dynamic> torneio =
       'id_admin'            :     codigoAdmin,
       'codigo_entrada'      :     codigoEntrada,
 
+      'nome_torneio'        :     'Meu Torneio'
+
       'estado_torneio'      :     enum_estado_torneio.em_preparo.index,
 
       'permitir_pedidos'    :     true,

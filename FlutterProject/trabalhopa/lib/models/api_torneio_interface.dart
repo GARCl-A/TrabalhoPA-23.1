@@ -8,42 +8,49 @@ import 'api_torneio_dados.dart';
 import '../constants/torneio_states.dart';
 import '../constants/modos_torneio.dart';
 
-abstract class Torneio_API {
+abstract class API_TORNEIO {
   // Cria torneio em preparo, retorna identificador do torneio
   Future<({bool sucesso, String? id_torneio, String? id_admin})>
-      criar_torneio();
+  criar_torneio
+  ();
 
   // Retorna um map com os dados do torneio, inclusive de etapas e partidas caso já tenham si adicionadas
-  Future<({bool sucesso, Map<String, dynamic>? torneio})> get_torneio_map(
-      String id_torneio);
+  Future<({bool sucesso, Map<String, dynamic>? torneio})> 
+  get_torneio_map
+  (String id_torneio);
 
   // Retorna código de entrada do torneio
   // Não implementado
-  ({bool sucesso, String? codigo_entrada}) get_codigo_entrada(
+  Future<({bool sucesso, String? codigo_entrada})>
+   get_codigo_entrada(
       String id_torneio);
 
-  Future<({bool sucesso})> set_nome_torneio (String id_torneio, String id_admin, String nome_torneio);
+  Future<({bool sucesso, err_geral err})>
+  set_nome_torneio 
+  (String id_torneio, String id_admin, String nome_torneio);
 
   // Define configurações do torneio
   // No momento, incluem apenas configurações quanto a entrada de competidores
   // Verificar se requisitante é admin
-  ({bool sucesso}) set_torneio_config(String id_torneio, String id_admin,
-      {bool permitir_pedidos, bool aceitar_pedidos});
+  Future<({bool sucesso})>
+  set_torneio_config
+  (String id_torneio, String id_admin, {bool permitir_pedidos, bool aceitar_pedidos});
 
   // Define configurações do torneio
   // No momento, incluem apenas configurações quanto a entrada de competidores
   // Verificar se requisitante é admin
-  ({bool sucesso, bool? permitir_pedidos, bool? aceitar_pedidos})
-      get_torneio_config(String id_torneio);
+  Future<({bool sucesso, bool? permitir_pedidos, bool? aceitar_pedidos})>
+  get_torneio_config
+  (String id_torneio);
 
   // Retorna lista de competidores inclusos no torneio
-  ({bool sucesso, List? competidores}) get_competidores(String id_torneio);
+  Future<({bool sucesso, List? competidores})> get_competidores(String id_torneio);
 
   // Retorna lista de competidores que requisitaram entrada no torneio
-  ({bool sucesso, List? pedidos}) get_pedidos_entrada(String id_torneio);
+  Future<({bool sucesso, List? pedidos})> get_pedidos_entrada(String id_torneio);
 
   // Retorna estado do torneio, definido por um enum
-  ({bool sucesso, enum_estado_torneio? estado}) get_estado_torneio(
+  Future<({bool sucesso, enum_estado_torneio? estado})> get_estado_torneio(
       String id_torneio);
 
   // Confere se id_admin é o código de administrador do torneio inserido
@@ -51,12 +58,12 @@ abstract class Torneio_API {
       String id_torneio, String id_admin);
 
   // Insere competidor em lista de pedidos de entrada do torneio por código
-  ({bool sucesso, err_pedir_entrada? err}) pedir_entrada(
+  Future<({bool sucesso, err_pedir_entrada? err})> pedir_entrada(
       String id_torneio, String nome_competidor);
 
   // Aceita competidor da lista de pedidos
   // Verificar se requisitante é admin
-  ({bool sucesso, err_pedir_entrada? err}) aceitar_entrada(
+  Future<({bool sucesso, err_pedir_entrada? err})> aceitar_entrada(
       String id_torneio, String id_admin, String nome_competidor);
 
   // Adiciona competidor diretamente ao torneio manualmente
@@ -88,11 +95,11 @@ abstract class Torneio_API {
 
   // Retorna a etapa atual do torneio, contendo uma lista das partidas e seus dados
   // Formato das partidas dependem do modo de torneio selecionado
-  ({bool sucesso, Etapa? etapa_atual}) get_etapa_atual(String id_torneio);
+  Future<({bool sucesso, Etapa? etapa_atual})> get_etapa_atual(String id_torneio);
 
   // Retorna todas as etapa atual do torneio, contendo uma lista das partidas e seus dados
   // Formato das partidas dependem do modo de torneio selecionado
-  ({bool sucesso, List<Etapa>? Etapas}) get_etapas_torneio(String id_torneio);
+  Future<({bool sucesso, List<Etapa>? Etapas})> get_etapas_torneio(String id_torneio);
 
   // Valida e registra dados inseridos em partidas da etapa atual
   // Verificar se requisitante é admin
@@ -100,9 +107,9 @@ abstract class Torneio_API {
       String id_torneio, String id_admin, Map<String, dynamic> etapa_atual);
 
   // Retorna uma lista com os dados de performance dos competidores na partida
-  ({bool sucesso, Placar? placar}) get_placar(
+  Future<({bool sucesso, Placar? placar})> get_placar(
       String id_torneio, String id_admin);
 
   // Verificar se requisitante é admin
-  ({bool sucesso}) voltar_etapa(String id_torneio, String id_admin);
+  Future<({bool sucesso})> voltar_etapa(String id_torneio, String id_admin);
 }

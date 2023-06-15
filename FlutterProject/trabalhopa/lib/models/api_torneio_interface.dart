@@ -22,6 +22,8 @@ abstract class Torneio_API {
   ({bool sucesso, String? codigo_entrada}) get_codigo_entrada(
       String id_torneio);
 
+  Future<({bool sucesso})> set_nome_torneio (String id_torneio, String id_admin, String nome_torneio);
+
   // Define configurações do torneio
   // No momento, incluem apenas configurações quanto a entrada de competidores
   // Verificar se requisitante é admin

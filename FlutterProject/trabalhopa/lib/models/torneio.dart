@@ -71,6 +71,8 @@ class Torneio implements Torneio_API {
       'id_admin'            :     codigoAdmin,
       'codigo_entrada'      :     codigoEntrada,
 
+      'nome_torneio'        :     'Meu Torneio',
+
       'estado_torneio'      :     enum_estado_torneio.em_preparo.index,
 
       'permitir_pedidos'    :     true,
@@ -199,6 +201,30 @@ class Torneio implements Torneio_API {
 
     return (sucesso: true, err: err_geral.none);
 
+  }
+
+  @override
+  Future<({bool sucesso, err_geral err})> 
+  set_nome_torneio 
+  (String id_torneio, String id_admin, String nome_torneio) async
+  {
+    // Autorização
+    var resposta = await check_if_admin(id_torneio, id_admin);
+    if (resposta.sucesso == false) return (sucesso:false, err: err_geral.torneio_inexistente);
+    if (resposta.is_admin == false) return (sucesso:false, err: err_geral.nao_autorizado);
+
+    var res_get = await _conexao_banco.getTorneio(id_torneio);
+    if (res_get.sucesso == false) return (sucesso:false, err: err_geral.erro_bd);
+
+    if (checkNomeTorneio(nome_torneio) != true) return (sucesso:false, err: err_geral.nome_invalido);
+
+    res_get.torneio?['nome_torneio'] = nome_torneio;
+    var res_repl = await _conexao_banco.replaceTorneio(id_torneio, res_get.torneio??{});
+
+    if (res_repl.sucesso == false ) return (sucesso:false, err: err_geral.erro_bd);
+
+    return (sucesso:true, err: err_geral.none);
+  
   }
   
   @override

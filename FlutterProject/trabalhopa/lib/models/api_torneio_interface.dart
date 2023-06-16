@@ -58,12 +58,12 @@ abstract class API_TORNEIO {
       String id_torneio, String id_admin);
 
   // Insere competidor em lista de pedidos de entrada do torneio por código
-  Future<({bool sucesso, err_pedir_entrada? err})> pedir_entrada(
+  Future<({bool sucesso, err_geral err})> pedir_entrada(
       String id_torneio, String nome_competidor);
 
   // Aceita competidor da lista de pedidos
   // Verificar se requisitante é admin
-  Future<({bool sucesso, err_pedir_entrada? err})> aceitar_entrada(
+  Future<({bool sucesso, err_geral? err})> aceitar_entrada(
       String id_torneio, String id_admin, String nome_competidor);
 
   // Adiciona competidor diretamente ao torneio manualmente

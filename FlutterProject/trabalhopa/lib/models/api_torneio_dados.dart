@@ -112,7 +112,7 @@ enum err_geral
   erro_bd,
   nome_invalido,
   nome_duplicado,
-  entrada_negada,
+  pedido_negado,
   regras_indeterminadas,
   torneio_em_progresso,
   etapa_nao_concluida,

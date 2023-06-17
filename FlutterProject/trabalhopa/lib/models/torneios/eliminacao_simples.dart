@@ -1,5 +1,5 @@
 import '../torneio.dart';
-import '../controller_torneio_api_dados.dart';
+import '../api_torneio_dados.dart';
 import '../../constants/torneio_states.dart';
 
 import '../../bd/MongoImpl2.dart';

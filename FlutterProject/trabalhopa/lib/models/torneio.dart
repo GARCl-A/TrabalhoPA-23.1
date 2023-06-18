@@ -7,7 +7,7 @@ import 'package:trabalhopa/models/api_torneio_dados.dart';
 
 import 'api_torneio_interface.dart' show API_TORNEIO;
 import 'api_torneio_dados.dart'
-    show Etapa, Placar, err_geral, err_pedir_entrada;
+    show Etapa, Placar, err_geral; //err_pedir_entrada;
 import '../constants/torneio_states.dart';
 import '../constants/modos_torneio.dart';
 import '../bd/MongoImpl2.dart';
@@ -44,6 +44,7 @@ class Torneio implements API_TORNEIO  {
   // Cria torneio em preparo, retorna identificador do torneio
   @override
   Future<({bool sucesso, String ? id_torneio, String ? id_admin})> criar_torneio() async  {
+    await MongoConnection.create();
     // Gera strings aleatórias para id_admin e id_torneio
     // Confere se não há outro torneio com mesmo id
     // Insere torneio no banco com outros dados de valor padrão
@@ -61,6 +62,7 @@ class Torneio implements API_TORNEIO  {
 
     if (resultado.sucesso != false)
     {
+      await MongoConnection.close();
       return (sucesso:false ,id_admin: null, id_torneio: null);
     }
      
@@ -94,21 +96,26 @@ class Torneio implements API_TORNEIO  {
 
     if (resEscrita.sucesso == false)
     {
+      await MongoConnection.close();
       return (sucesso:false, id_admin: null, id_torneio: null);
     }
 
+    await MongoConnection.close();
     return (sucesso:true, id_admin: codigoAdmin, id_torneio: codigoTorneio);
   }
 
   @override
   Future<({bool sucesso, Map<String, dynamic> ? torneio})> get_torneio_map(String id_torneio) async 
   {
+    await MongoConnection.create();
     var resposta = await _conexao_banco.getTorneio(id_torneio);
     if (resposta.sucesso == false)
     {
+      await MongoConnection.close();
       return (sucesso:false, torneio : null);
     }
 
+    await MongoConnection.close();
     return (sucesso:true, torneio: resposta.torneio);
   }
 
@@ -188,20 +195,37 @@ class Torneio implements API_TORNEIO  {
   definir_regras
   (String id_torneio, String id_admin, enum_modos_torneio regras) async
   {
+    await MongoConnection.create();
     // Autorização
     var resposta = await check_if_admin(id_torneio, id_admin);
-    if (resposta.sucesso == false) return (sucesso:false, err: err_geral.torneio_inexistente);
-    if (resposta.is_admin == false) return (sucesso:false, err: err_geral.nao_autorizado);
+    if (resposta.sucesso == false) {
+      await MongoConnection.close();
+      return (sucesso:false, err: err_geral.torneio_inexistente);
+    }
+    if (resposta.is_admin == false) {
+      await MongoConnection.close();
+      return (sucesso:false, err: err_geral.nao_autorizado);
+    }
 
     var res_get = await _conexao_banco.getTorneio(id_torneio);
-    if (res_get.sucesso == false) return (sucesso:false, err: err_geral.torneio_inexistente);
-    if (res_get.torneio?['id_torneio'] == null) return (sucesso:false, err: err_geral.erro_bd);
+    if (res_get.sucesso == false) {
+      await MongoConnection.close();
+      return (sucesso:false, err: err_geral.torneio_inexistente);
+    }
+    if (res_get.torneio?['id_torneio'] == null) {
+      await MongoConnection.close();
+      return (sucesso:false, err: err_geral.erro_bd);
+    }
 
     res_get.torneio!['regras'] = regras.index;
 
     var res_replace = await _conexao_banco.replaceTorneio(id_torneio, res_get.torneio??{});
-    if(res_replace.sucesso == false) return (sucesso:false, err: err_geral.erro_bd);
+    if(res_replace.sucesso == false) {
+      await MongoConnection.close();
+      return (sucesso:false, err: err_geral.erro_bd);
+    }
 
+    await MongoConnection.close();
     return (sucesso: true, err: err_geral.none);
 
   }
@@ -211,21 +235,38 @@ class Torneio implements API_TORNEIO  {
   set_nome_torneio 
   (String id_torneio, String id_admin, String nome_torneio) async
   {
+    await MongoConnection.create();
     // Autorização
     var resposta = await check_if_admin(id_torneio, id_admin);
-    if (resposta.sucesso == false) return (sucesso:false, err: err_geral.torneio_inexistente);
-    if (resposta.is_admin == false) return (sucesso:false, err: err_geral.nao_autorizado);
+    if (resposta.sucesso == false) {
+      await MongoConnection.close();
+      return (sucesso:false, err: err_geral.torneio_inexistente);
+    }
+    if (resposta.is_admin == false) {
+      await MongoConnection.close();
+      return (sucesso:false, err: err_geral.nao_autorizado);
+    }
 
     var res_get = await _conexao_banco.getTorneio(id_torneio);
-    if (res_get.sucesso == false) return (sucesso:false, err: err_geral.erro_bd);
+    if (res_get.sucesso == false) {
+      await MongoConnection.close();
+      return (sucesso:false, err: err_geral.erro_bd);
+    }
 
-    if (checkNomeTorneio(nome_torneio) != true) return (sucesso:false, err: err_geral.nome_invalido);
+    if (checkNomeTorneio(nome_torneio) != true) {
+      await MongoConnection.close();
+      return (sucesso:false, err: err_geral.nome_invalido);
+    }
 
     res_get.torneio?['nome_torneio'] = nome_torneio;
     var res_repl = await _conexao_banco.replaceTorneio(id_torneio, res_get.torneio??{});
 
-    if (res_repl.sucesso == false ) return (sucesso:false, err: err_geral.erro_bd);
+    if (res_repl.sucesso == false ) {
+      await MongoConnection.close();
+      return (sucesso:false, err: err_geral.erro_bd);
+    }
 
+    await MongoConnection.close();
     return (sucesso:true, err: err_geral.none);
   
   }

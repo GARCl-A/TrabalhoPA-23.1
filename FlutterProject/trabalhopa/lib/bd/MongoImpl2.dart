@@ -35,8 +35,12 @@ class MongoConnection implements TorneioBdApi
     _db = await Db.create(
       'mongodb://localhost:27017/my_database'); //Completamente placeholder isso aqui.
 
+    print(_db);
+
+    print("attempting to open...");
     await _db!.open();
 
+    print("collection maybe?");
     _torneiosCollection = _db!.collection('torneios');
     print("Conectado!");
   }

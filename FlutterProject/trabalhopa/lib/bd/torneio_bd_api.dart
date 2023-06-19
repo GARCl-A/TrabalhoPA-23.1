@@ -3,47 +3,24 @@
  * 
 */
 
-import '../constants/modos_torneio.dart';
-import 'torneio_bd_api_dados.dart';
-
-abstract class BD_API
+abstract class TorneioBdApi
 {
-  // Cria um torneio, registrando seu id, id_admin e configuração padrão inicial
-  Future<({String ? id_torneio, String ? id_admin})>
-  criar_torneio
-  ();
+  // Cria um torneio, registrando seu id e id_admin, 
+  Future<({bool sucesso})>
+  criarTorneio
+  (Map<String,dynamic> torneioInicial);
 
   // Retorna objeto com informações do torneio
-  // Verificar classe de objeto para identificar quais dados são retornados
-  Future<({bool sucesso, TorneioModelo ? torneio})>
-  get_dados_torneio
-  (String id_torneio);
-
-  ({bool sucesso})
-  set_torneio_config
-  (String id_torneio, {bool? permitir_pedidos, bool? aceitar_pedidos});
-
-  // Adiciona um competidor à lista de pedidos de entrada do torneio.
-  ({bool sucesso})
-  adicionar_pedido_entrada
-  (String id_torneio, String nome_competidor);
-
-  // Adiciona um competidor à lista de pedidos de entrada do torneio.
-  ({bool sucesso})
-  aceitar_pedido_entrada
-  (String id_torneio, String nome_competidor);
+  Future<({bool sucesso, Map<String,dynamic> ? torneio})>
+  getTorneio
+  (String idTorneio);
 
   Future<({bool sucesso})>
-  adicionar_competidor
-  (String id_torneio, String nome_competidor);
+  replaceTorneio
+  (String idTorneio, Map<String,dynamic> torneioAlterado);
 
   Future<({bool sucesso})>
-  remover_competidor
-  (String id_torneio, String nome_competidor);
-
-  Future<({bool sucesso})>
-  definir_regras
-  (String id_torneio, enum_modos_torneio regras);
-
+  deleteTorneio
+  (String idTorneio);
   
 }

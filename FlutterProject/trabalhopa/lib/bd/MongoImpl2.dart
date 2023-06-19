@@ -3,23 +3,9 @@
  * 
 */
 
-import 'torneioBdApi2.dart';
+import 'torneio_bd_api.dart';
 
 import 'package:mongo_dart/mongo_dart.dart';
-
-void main() async
-{
-  /*
-  await MongoConnection.create();
-  var minhaConexao = MongoConnection();
-  //print(await minhaConexao.remover_competidor('S4duGbWuNg', 'Compet A'));
-  
-  minhaConexao.meth_test();
-  */
-  
-  
-
-}
 
 
 class MongoConnection implements TorneioBdApi

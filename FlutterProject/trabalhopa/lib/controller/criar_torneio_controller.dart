@@ -1,15 +1,7 @@
-/**
-get name
-get type
-
-criar_torneio()
-set_nome_torneio()
-definir_regras() */
-
 import '/constants/modos_torneio.dart';
-import '/models/torneio.dart';
+import '/models/torneio_mockup.dart';
 
-void createTournament(String tournamentName, String tournamentType) async {
+Future<String?> createTournament(String tournamentName, String tournamentType) async {
 
     enum_modos_torneio ruleset;
 
@@ -21,29 +13,19 @@ void createTournament(String tournamentName, String tournamentType) async {
         ruleset = enum_modos_torneio.nao_selecionado;
     }
 
-    var t = Torneio();
-    print('create tourney');
-    var res = await t.criar_torneio();
+    var t = TorneioMockup();
+    var res = await t.createTournament();
 
-    if (!res.sucesso) {
-        print('oh nyo');
-    } else {
-        String tournamentId, adminId;
+    if (!res.success) return 'n/a';
+    if (res.tournamentId == null || res.adminId == null) return 'n/a';
 
-        if (res.id_torneio != null && res.id_admin != null) {
-            tournamentId = res.id_torneio ?? '';
-            adminId = res.id_admin ?? '';
-
-            await t.set_nome_torneio(tournamentId, adminId, tournamentName);
-            await t.definir_regras(tournamentId, adminId, ruleset);
-            var tournamentMap = await t.get_torneio_map(tournamentId);
-
-            print("t's map: ${tournamentMap}");
-        }
-
-        
-    }
-
-    
-    
+    String tournamentId, adminId;
+    tournamentId = res.tournamentId ?? '';
+    adminId = res.adminId ?? '';
+    await t.setTournamentName(tournamentId, adminId, tournamentName);
+    await t.setRules(tournamentId, adminId, ruleset);
+    // var tournamentMap = await t.getTournamentData(tournamentId);
+    // print("t's map: ${tournamentMap}");
+    print("res.tournamentId: ${res.tournamentId}");
+    return res.tournamentId;
 }

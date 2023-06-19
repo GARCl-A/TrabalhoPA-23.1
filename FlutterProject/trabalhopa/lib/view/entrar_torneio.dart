@@ -40,17 +40,15 @@ class EntrarTorneio extends StatelessWidget {
                       elevation: 2.0, // This adds a small shadow
                       child: Padding(
                         // This adds padding inside the Card
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
                             Text('Nome do Torneio: ${value.name}',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            Divider(), // This creates a line separation
-                            Text(
-                                'Numero de Participantes: ${value.participants}'),
-                            Divider(),
-                            Text(
-                                'Data de Início: ${value.startDate.toString()}'),
+                            style: const TextStyle(fontWeight: FontWeight.bold)),
+                            const Divider(), // This creates a line separation
+                            Text('Numero de Participantes: ${value.participants}'),
+                            const Divider(),
+                            Text('Data de Início: ${value.startDate.toString()}'),
                           ],
                         ),
                       ),
@@ -64,7 +62,7 @@ class EntrarTorneio extends StatelessWidget {
                 child: TextField(
                   controller: nicknameController,
                   decoration: InputDecoration(
-                    labelText: 'Apelido do Torneio',
+                    labelText: 'Nome do Competidor',
                     filled: true,
                     fillColor: Colors.white,
                     contentPadding: const EdgeInsets.all(8.0),
@@ -104,7 +102,7 @@ class EntrarTorneio extends StatelessWidget {
                   tournamentInfo.value =
                       TournamentInfo(name, participants, startDate);
                 },
-                child: Text('Enter'),
+                child: const Text('Enter'),
               )
             ],
           ),

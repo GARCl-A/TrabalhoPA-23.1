@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import '/controller/criar_torneio_controller.dart';
 
-class CriarTorneio extends StatelessWidget {
+
+class CriarTorneio extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _CriarTorneio();
+}
+class _CriarTorneio extends State<CriarTorneio> {
   final TextEditingController currentTournamentName = TextEditingController();
   final TextEditingController currentTournamentType = TextEditingController();
+  final TextEditingController currentTournamentId = TextEditingController();
+
+  void showCode(newCode) {
+    setState(() {
+      currentTournamentId.text = newCode;
+    });
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -46,7 +58,7 @@ class CriarTorneio extends StatelessWidget {
               },
             ),
             const SizedBox(height: 16.0),
-            const Text('Código de Entrada: 12345'), // Exemplo de código de entrada fixo
+            Text('Código de Entrada: ${currentTournamentId.text}'), // Exemplo de código de entrada fixo
             ElevatedButton(
               onPressed: () {
                 // Lógica para copiar o código de entrada para a área de transferência
@@ -104,14 +116,9 @@ class CriarTorneio extends StatelessWidget {
             // ),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () {
-                // Lógica para adicionar jogador manualmente
-                print('DEBUG:');
-                print('currentTournamentName.text: ${currentTournamentName.text}');
-                print('currentTournamentType.text: ${currentTournamentType.text}');
-
-                createTournament(currentTournamentName.text, currentTournamentType.text);
-
+              onPressed: () async {
+                // currentTournamentId.text = await createTournament(currentTournamentName.text, currentTournamentType.text) ?? '';
+                showCode(await createTournament(currentTournamentName.text, currentTournamentType.text) ?? '');
               },
               child: const Text('Criar Torneio'),
             ),

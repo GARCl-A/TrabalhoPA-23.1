@@ -48,24 +48,24 @@ class Torneio implements API_TORNEIO  {
     // Confere se não há outro torneio com mesmo id
     // Insere torneio no banco com outros dados de valor padrão
 
-    int idLenght = 10;
+    int idLength = 4;
 
     String codigoTorneio = '';
     var resultado;
     for (int i = 0; i < 100; i++)
     {
-      codigoTorneio = getRandomString(idLenght);
+      codigoTorneio = getRandomString(idLength);
       resultado = await _conexao_banco.getTorneio(codigoTorneio) ;
       if (resultado.sucesso == false) break;
     }
 
     if (resultado.sucesso != false)
     {
-      return (sucesso:false ,id_admin: null, id_torneio: null);
+      return (sucesso:false, id_admin: null, id_torneio: null);
     }
      
-    String codigoAdmin = getRandomString(idLenght);
-    String codigoEntrada = getRandomString(idLenght);
+    String codigoAdmin = getRandomString(idLength);
+    String codigoEntrada = getRandomString(idLength);
 
     Map <String,dynamic> torneio = 
     {
@@ -100,6 +100,7 @@ class Torneio implements API_TORNEIO  {
     return (sucesso:true, id_admin: codigoAdmin, id_torneio: codigoTorneio);
   }
 
+
   @override
   Future<({bool sucesso, Map<String, dynamic> ? torneio})> get_torneio_map(String id_torneio) async 
   {
@@ -111,6 +112,7 @@ class Torneio implements API_TORNEIO  {
 
     return (sucesso:true, torneio: resposta.torneio);
   }
+
 
   @override
   Future<({bool? is_admin, bool sucesso})> check_if_admin(String id_torneio, String id_admin) async

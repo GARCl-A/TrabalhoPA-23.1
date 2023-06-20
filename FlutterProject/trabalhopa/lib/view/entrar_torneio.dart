@@ -100,7 +100,7 @@ class EntrarTorneio extends StatelessWidget {
 
                   // Create a new TournamentInfo object and assign it to tournamentInfo
                   tournamentInfo.value =
-                      TournamentInfo(name, participants, startDate);
+                      TournamentInfo('Nome', participants, startDate);
                 },
                 child: const Text('Enter'),
               )
